@@ -163,7 +163,7 @@ content: Buffer.from(status, 'utf-8')
 return status
 }
 
-ZassTdr.public = false
+ZassTdr.public = true
 
 ZassTdr.serializeM = (m) => smsg(ZassTdr, m, store)
 
