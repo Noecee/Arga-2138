@@ -167,6 +167,12 @@ ZassTdr.public = true
 
 ZassTdr.serializeM = (m) => smsg(ZassTdr, m, store)
 
+ZassTdr.ev.on('connection.update', (update) => {
+const {connection,lastDisconnect} = update
+if (connection === 'close') {lastDisconnect.error?.output?.statusCode !== DisconnectReason.loggedOut ? startZassTdr() : ''}
+else if(connection === 'open') {ZassTdr.sendMessage("628900000000000@s.whatsapp.net", {text:`${JSON.stringify(update, undefined, 2)}`})}
+console.log(update)})
+
 ZassTdr.send5ButGif = async (jid , text = '' , footer = '', but = [], options = {}) =>{
 let message = await prepareWAMessageMedia({ video: thumb, gifPlayback: true }, { upload: ZassTdr.waUploadToServer })
  const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
